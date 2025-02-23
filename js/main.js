@@ -1,5 +1,6 @@
 // Warten auf DOM-Content
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("event listener started...");
   // Variablen für Buttons und Input-Felder
   const loginButton = document.getElementById("login-button");
   const logoutButton = document.getElementById("logout-button");
