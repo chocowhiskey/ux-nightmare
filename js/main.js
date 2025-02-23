@@ -27,10 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (validator.isEmail(email) && password) {
+    if (email && password) {
       // Show notification after registrate
       showNotification("Erfolgreich eingeloggt!");
-      registrateSection.style.display = "none";
+      setTimeout(() => {
+        window.location.href = "phone.html";
+      }, 500);
+    }
+  });
+
+  // Event-Listener for phone submission
+  submitPhoneButton.addEventListener("click", () => {
+    const phoneNumber = document.getElementById("phone-number").value;
+
+    if (phoneNumber) {
+      showNotification("Handynummer erfolgreich eingetragen!");
+      // Hier kannst du die Handynummer weiterverarbeiten, z. B. an einen Server senden
     }
   });
 
