@@ -1,4 +1,3 @@
-// Warten auf DOM-Content
 document.addEventListener("DOMContentLoaded", () => {
   console.log("event listener started...");
   // Variablen für Buttons und Input-Felder
@@ -6,47 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("logout-button");
   const loginSection = document.getElementById("login-section");
 
-  // Event-Listener für Login-Button
+  // Event-Listener for login button
   loginButton.addEventListener("click", () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
     if (username && password) {
-      // Zeige Nachricht nach Login
+      // Show notification after login
       showNotification("Erfolgreich eingeloggt!");
-      // Verstecke Login-Feld
       loginSection.style.display = "none";
-      // Zeige Logout-Button
       logoutButton.style.display = "inline-block";
     }
   });
 
-  // Event-Listener für Logout-Button
+  // Event-Listener for logout button
   logoutButton.addEventListener("click", () => {
-    // Verstecke Logout-Button und zeige Login
     logoutButton.style.display = "none";
     loginSection.style.display = "block";
-    // Zeige Nachricht nach Logout
-    showNotification("Du hast dich abgemeldet!");
+    showNotification("Erfolgreich ausgeloggt!");
   });
 
-  // Funktion für Popups
   function showNotification(message) {
     const notificationArea = document.getElementById("notification-area");
     notificationArea.textContent = message;
     notificationArea.style.display = "block";
     setTimeout(() => {
       notificationArea.style.display = "none";
-    }, 3000); // Popup verschwindet nach 3 Sekunden
+    }, 5000); // Popup disappears after 5 seconds
   }
 
-  // Pop-up alle paar Minuten
   setInterval(() => {
-    showNotification("Achtung! Deine Sitzung läuft bald ab!");
-  }, getRandomInt(3000, 5000)); // Alle 3-5 Sekunden
+    showNotification("Achtung! Dein Login braucht ungewöhnlich lange!");
+  }, getRandomInt(5000, 8000)); // 5 till 8 seconds
 });
 
-// Hilfsfunktion für zufällige Intervalle
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
