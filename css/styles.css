@@ -1,6 +1,6 @@
 body {
   font-family: "Comic Sans MS", cursive, sans-serif;
-  background: #ff00ff;
+  background: #2d3142;
   color: white;
   text-align: center;
   overflow-x: hidden;
@@ -11,25 +11,21 @@ header {
 }
 
 #login-section input {
-  background-color: yellow;
+  background-color: #e1faf9;
   border: none;
   margin: 10px;
   padding: 10px;
   font-size: 20px;
+  border-radius: 90%;
 }
 
-#login-button,
-#logout-button {
+#registrate-button {
   font-size: 30px;
-  background-color: green;
+  background-color: red;
   color: white;
   border: none;
   padding: 15px;
   margin: 5px;
-}
-
-#login-button {
-  background-color: red; /* Wird absichtlich weniger hervorgehoben */
 }
 
 button:hover {
@@ -44,6 +40,6 @@ button:hover {
   right: 10px;
   font-size: 18px;
   color: black;
-  background-color: white;
-  display: none; /* Popups sind zu Beginn unsichtbar */
+  background-color: red;
+  display: none;
 }

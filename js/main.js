@@ -1,28 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("event listener started...");
   // Variablen für Buttons und Input-Felder
-  const loginButton = document.getElementById("login-button");
-  const logoutButton = document.getElementById("logout-button");
-  const loginSection = document.getElementById("login-section");
+  const registrateButton = document.getElementById("registrate-button");
+  const registrateSection = document.getElementById("registrate-section");
 
-  // Event-Listener for login button
-  loginButton.addEventListener("click", () => {
-    const username = document.getElementById("username").value;
+  // Event-Listener for registrate button
+  registrateButton.addEventListener("click", () => {
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (username && password) {
-      // Show notification after login
+    if (validator.isEmail(email) && password) {
+      // Show notification after registrate
       showNotification("Erfolgreich eingeloggt!");
-      loginSection.style.display = "none";
-      logoutButton.style.display = "inline-block";
+      registrateSection.style.display = "none";
     }
-  });
-
-  // Event-Listener for logout button
-  logoutButton.addEventListener("click", () => {
-    logoutButton.style.display = "none";
-    loginSection.style.display = "block";
-    showNotification("Erfolgreich ausgeloggt!");
   });
 
   function showNotification(message) {
@@ -35,8 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setInterval(() => {
-    showNotification("Achtung! Dein Login braucht ungewöhnlich lange!");
-  }, getRandomInt(5000, 8000)); // 5 till 8 seconds
+    showNotification(
+      "Achtung! Deine Registrierung braucht ungewöhnlich lange!"
+    );
+  }, getRandomInt(5000, 8000)); // 5 till 8
 });
 
 function getRandomInt(min, max) {
