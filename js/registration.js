@@ -1,3 +1,5 @@
+import { getRandomInt, showNotification } from "./utils.js";
+
 const randomAlertWhileRegistrationMessages = [
   "Bereit für das schlimmste Formular deines Lebens?",
   "Warum schickst du das Formular ab? Du hast noch Zeit!",
@@ -19,8 +21,8 @@ const randomAlertWhileRegistrationMessages = [
 document.addEventListener("DOMContentLoaded", () => {
   console.log("event listener started...");
 
-  /* Check on which site we are on */
-  // Registration page
+  let intervalStarted = false;
+
   if (document.getElementById("registrate-button")) {
     const registrateButton = document.getElementById("registrate-button");
     const registrateSection = document.getElementById("registrate-section");
@@ -42,42 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Phone page
-  if (document.getElementById("submit-phone")) {
-    const submitPhoneButton = document.getElementById("submit-phone");
-
-    // Event-Listener for phone submission
-    submitPhoneButton.addEventListener("click", () => {
-      const phoneNumber = document.getElementById("phone-number").value;
-
-      if (phoneNumber) {
-        showNotification("Handynummer erfolgreich eingetragen!");
-        console.log("Got phone number...");
-        // Todo
-      }
-    });
+  if (!intervalStarted) {
+    intervalStarted = true;
+    setInterval(() => {
+      showNotification("", true, randomAlertWhileRegistrationMessages);
+    }, getRandomInt(3000, 5000));
   }
-
-  function showNotification(message, randomize = true, messagePool = []) {
-    const notificationArea = document.getElementById("notification-area");
-
-    if (randomize && messagePool.length > 0) {
-      const randomIndex = getRandomInt(0, messagePool.length - 1);
-      message = messagePool[randomIndex];
-    }
-
-    notificationArea.textContent = message;
-    notificationArea.style.display = "block";
-    setTimeout(() => {
-      notificationArea.style.display = "none";
-    }, 4000);
-  }
-
-  setInterval(() => {
-    showNotification("", true, randomAlertWhileRegistrationMessages);
-  }, getRandomInt(3000, 5000));
 });
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
