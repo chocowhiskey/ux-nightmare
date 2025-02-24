@@ -71,19 +71,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (!email || !password) {
-      alert("⚠️ Du musst eine Email und ein Passwort eingeben!");
+    if (!validator.isEmail(email)) {
+      alert("⚠️ Du musst (d)eine Email eingeben!");
+    } else if (!password) {
+      alert("⚠️ Du musst ein Passwort eingeben!");
     }
 
-    if (email && password) {
+    if (validator.isEmail(email) && password) {
       // Show notification after registrate
       showNotification("Erfolgreich eingeloggt!");
       console.log(
         "Successfully registered...\nProceed to phone number submission"
       );
-      setTimeout(() => {
-        window.location.href = "phone.html";
-      }, 500);
+      window.location.href = "phone.html";
     }
   });
 
