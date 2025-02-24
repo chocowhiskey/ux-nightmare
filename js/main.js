@@ -18,39 +18,50 @@ const randomAlertWhileRegistrationMessages = [
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("event listener started...");
-  // Variablen für Buttons und Input-Felder
-  const registrateButton = document.getElementById("registrate-button");
-  const registrateSection = document.getElementById("registrate-section");
 
-  // Event-Listener for registrate button
-  registrateButton.addEventListener("click", () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+  /* Check on which site we are on */
+  // Registration page
+  if (document.getElementById("registrate-button")) {
+    const registrateButton = document.getElementById("registrate-button");
+    const registrateSection = document.getElementById("registrate-section");
+    // Event-Listener for registrate button
+    registrateButton.addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-    if (email && password) {
-      // Show notification after registrate
-      showNotification("Erfolgreich eingeloggt!");
-      setTimeout(() => {
-        window.location.href = "phone.html";
-      }, 500);
-    }
-  });
+      if (email && password) {
+        // Show notification after registrate
+        showNotification("Erfolgreich eingeloggt!");
+        console.log(
+          "Successfully registered...\nProceed to phone number submission"
+        );
+        setTimeout(() => {
+          window.location.href = "phone.html";
+        }, 500);
+      }
+    });
+  }
 
-  // Event-Listener for phone submission
-  submitPhoneButton.addEventListener("click", () => {
-    const phoneNumber = document.getElementById("phone-number").value;
+  // Phone page
+  if (document.getElementById("submit-phone")) {
+    const submitPhoneButton = document.getElementById("submit-phone");
 
-    if (phoneNumber) {
-      showNotification("Handynummer erfolgreich eingetragen!");
-      // Hier kannst du die Handynummer weiterverarbeiten, z. B. an einen Server senden
-    }
-  });
+    // Event-Listener for phone submission
+    submitPhoneButton.addEventListener("click", () => {
+      const phoneNumber = document.getElementById("phone-number").value;
+
+      if (phoneNumber) {
+        showNotification("Handynummer erfolgreich eingetragen!");
+        console.log("Got phone number...");
+        // Todo
+      }
+    });
+  }
 
   function showNotification(message, randomize = true, messagePool = []) {
     const notificationArea = document.getElementById("notification-area");
 
     if (randomize && messagePool.length > 0) {
-      // Zufällige Auswahl einer Nachricht aus dem Pool
       const randomIndex = getRandomInt(0, messagePool.length - 1);
       message = messagePool[randomIndex];
     }
@@ -59,12 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
     notificationArea.style.display = "block";
     setTimeout(() => {
       notificationArea.style.display = "none";
-    }, 4000); // Popup disappears after 5 seconds
+    }, 4000);
   }
 
   setInterval(() => {
     showNotification("", true, randomAlertWhileRegistrationMessages);
-  }, getRandomInt(3000, 5000)); // 5 till 8
+  }, getRandomInt(3000, 5000));
 });
 
 function getRandomInt(min, max) {
