@@ -1,4 +1,8 @@
-import { getRandomInt, showNotification } from "./utils.js";
+import {
+  getRandomInt,
+  showNotification,
+  generateRandomPhoneNumber,
+} from "./utils.js";
 
 export const randomAlertWhileRegistrationMessages = [
   "Bereit für das schlimmste Formular deines Lebens?",
@@ -23,17 +27,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let intervalStarted = false;
   if (document.getElementById("submit-phone")) {
+    const generatedPhoneButton = document.getElementById("generated-phone");
     const submitPhoneButton = document.getElementById("submit-phone");
+    const changePhoneButton = document.getElementById("change-phone");
 
+    function updatePhoneNumber() {
+      generatedPhoneButton.textContent = generateRandomPhoneNumber();
+    }
+    updatePhoneNumber();
     // Event-Listener for phone submission
     submitPhoneButton.addEventListener("click", () => {
       const phoneNumber = document.getElementById("phone-number").value;
 
-      if (phoneNumber) {
+      if (!validator.isMobilePhone(phoneNumber)) {
+        alert(
+          "Well well well if you are not a lying piece of shit, then Ill shit bricks...."
+        );
+      } else {
         showNotification("Handynummer erfolgreich eingetragen!");
         console.log("Got phone number...");
         // Todo
       }
+    });
+
+    // Event-Listener for change phone number
+    changePhoneButton.addEventListener("click", () => {
+      updatePhoneNumber();
     });
   }
 

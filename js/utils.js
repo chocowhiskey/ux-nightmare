@@ -19,3 +19,20 @@ export function showNotification(message, randomize = true, messagePool = []) {
     notificationArea.style.display = "none";
   }, 4000);
 }
+
+export function generateRandomPhoneNumber() {
+  const countryCode = "+49";
+  const carrierPrefix = "15";
+
+  const randomNumber = Math.floor(Math.random() * 100000000)
+    .toString()
+    .padStart(8, "0");
+
+  // Format: "+49 15xx xxxx xxxx"
+  const formattedNumber = `${countryCode} ${carrierPrefix}${randomNumber.slice(
+    0,
+    2
+  )} ${randomNumber.slice(2, 6)} ${randomNumber.slice(6)}`;
+
+  return formattedNumber;
+}

@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Handynummer Eingabe</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
   </head>
   <body>
     <header>
-      <h1>Handynummer eingeben</h1>
+      <h1>Confirm phone number</h1>
     </header>
     <main>
       <section id="phone-section">
-        <h2>Gib deine Handynummer an</h2>
-        <input type="text" id="phone-number" placeholder="Handynummer" />
-        <button id="submit-phone">Absenden</button>
-      </section>
-      <div id="notification-area"></div>
+        <h2>Is this your phone number?</h2>
+        <div id="generated-phone">Loading phone number</div>
+        <button id="submit-phone">Yes</button>
+        <button id="change-phone">No</button>
+      </section
+      div id="notification-area"></div>
     </main>
     <script type="module" src="js/phone.js"></script>
   </body>
