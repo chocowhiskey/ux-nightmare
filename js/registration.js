@@ -27,9 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentButtonSize = 100;
   let minButtonSize = 30;
   let maxButtonSize = 100;
+  let moveCooldown = false;
 
   // Lets move the registration button whenever mouse comes close
   registrateButton.addEventListener("mouseover", (event) => {
+    if (moveCooldown) return;
+    moveCooldown = true;
+
+    setTimeout(() => {
+      moveCooldown = false;
+    }, 1000);
+
     const buttonRect = registrateButton.getBoundingClientRect();
     const offsetX = Math.random() * 200 - 100;
     const offsetY = Math.random() * 200 - 100;
@@ -62,6 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
   registrateButton.addEventListener("click", () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("⚠️ Du musst eine Email und ein Passwort eingeben!");
+    }
 
     if (email && password) {
       // Show notification after registrate
