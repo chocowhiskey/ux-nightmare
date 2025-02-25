@@ -10,14 +10,26 @@ const fallingLettersContainer = document.getElementById(
   "falling-letters-container"
 );
 const nextButton = document.getElementById("next-button");
+const hangmanDisplay = document.getElementById("hangman-display"); // Hangman Bild
 
-let currentQuestion =
-  securityQuestions[Math.floor(Math.random() * securityQuestions.length)];
-let collectedLetters = [];
-let expectedAnswer = currentQuestion.answer.split(""); // Array aus Buchstaben
+let currentQuestion;
+let expectedAnswer;
+let collectedLetters;
+let incorrectGuesses;
 
-questionDisplay.textContent = currentQuestion.question;
-inputDisplay.textContent = "_ ".repeat(expectedAnswer.length).trim();
+// Funktion, um eine neue Frage zu starten
+function startNewQuestion() {
+  currentQuestion =
+    securityQuestions[Math.floor(Math.random() * securityQuestions.length)];
+  expectedAnswer = currentQuestion.answer.split(""); // Array mit Buchstaben
+  collectedLetters = new Array(expectedAnswer.length).fill("_"); // Platzhalter für Hangman
+  incorrectGuesses = 0;
+
+  questionDisplay.textContent = currentQuestion.question;
+  updateInputDisplay();
+  updateHangman();
+  fallingLettersContainer.innerHTML = ""; // Reset falling letters
+}
 
 // Funktion, um zufällige Buchstaben und Zahlen zu generieren
 function getRandomChar() {
@@ -38,7 +50,7 @@ function createFallingLetter() {
 
   letter.textContent = char;
   letter.style.left = Math.random() * 90 + "%";
-  letter.style.animationDuration = Math.random() * 3 + 5 + "s";
+  letter.style.animationDuration = Math.random() * 3 + 6 + "s";
 
   // Klick-Event zum Sammeln der Buchstaben
   letter.addEventListener("click", () => collectLetter(char, letter));
@@ -53,28 +65,44 @@ function createFallingLetter() {
   }, 5000);
 }
 
-// Funktion, um die korrekten Buchstaben zu sammeln
+// Funktion, um Buchstaben zu sammeln
 function collectLetter(letter, element) {
-  if (collectedLetters.length < expectedAnswer.length) {
-    // Check, ob der nächste benötigte Buchstabe übereinstimmt
-    if (expectedAnswer[collectedLetters.length] === letter) {
-      collectedLetters.push(letter);
-      updateInputDisplay();
-      element.remove();
+  let found = false;
 
-      // Falls die Antwort vollständig ist, aktiviere den Button
-      if (collectedLetters.length === expectedAnswer.length) {
-        nextButton.disabled = false;
-      }
+  expectedAnswer.forEach((expected, index) => {
+    if (expected === letter && collectedLetters[index] === "_") {
+      collectedLetters[index] = letter;
+      found = true;
     }
+  });
+
+  if (!found) {
+    incorrectGuesses++;
+    updateHangman();
   }
+
+  updateInputDisplay();
+  element.remove();
+
+  if (incorrectGuesses >= 6) {
+    alert("Zu viele falsche Versuche! Neue Frage.");
+    startNewQuestion();
+    return;
+  }
+
+  if (!collectedLetters.includes("_")) {
+    nextButton.disabled = false;
+  }
+}
+
+// Aktualisiert die Hangman-Zeichnung
+function updateHangman() {
+  hangmanDisplay.textContent = `Hangman: ${"X".repeat(incorrectGuesses)}`;
 }
 
 // Aktualisiert die Anzeige des "Eingabefelds"
 function updateInputDisplay() {
-  inputDisplay.textContent =
-    collectedLetters.join(" ") +
-    " _".repeat(expectedAnswer.length - collectedLetters.length).trim();
+  inputDisplay.textContent = collectedLetters.join(" ");
 }
 
 // Buchstaben in Intervallen erscheinen lassen
@@ -84,3 +112,6 @@ setInterval(createFallingLetter, 1000);
 nextButton.addEventListener("click", () => {
   window.location.href = "captcha.html"; // Nächste Seite
 });
+
+// Erste Frage starten
+startNewQuestion();
