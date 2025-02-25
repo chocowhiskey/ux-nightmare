@@ -14,9 +14,10 @@ const nextButton = document.getElementById("next-button");
 let currentQuestion =
   securityQuestions[Math.floor(Math.random() * securityQuestions.length)];
 let collectedLetters = [];
+let expectedAnswer = currentQuestion.answer.split(""); // Array aus Buchstaben
 
 questionDisplay.textContent = currentQuestion.question;
-inputDisplay.textContent = "_ ".repeat(currentQuestion.answer.length).trim();
+inputDisplay.textContent = "_ ".repeat(expectedAnswer.length).trim();
 
 // Funktion, um zufällige Buchstaben und Zahlen zu generieren
 function getRandomChar() {
@@ -32,14 +33,12 @@ function createFallingLetter() {
   // 50% Chance, dass der Buchstabe zur Antwort gehört
   let char =
     Math.random() < 0.5
-      ? currentQuestion.answer[
-          Math.floor(Math.random() * currentQuestion.answer.length)
-        ]
+      ? expectedAnswer[Math.floor(Math.random() * expectedAnswer.length)]
       : getRandomChar();
 
   letter.textContent = char;
   letter.style.left = Math.random() * 90 + "%";
-  letter.style.animationDuration = Math.random() * 3 + 7 + "s";
+  letter.style.animationDuration = Math.random() * 3 + 5 + "s";
 
   // Klick-Event zum Sammeln der Buchstaben
   letter.addEventListener("click", () => collectLetter(char, letter));
@@ -48,30 +47,38 @@ function createFallingLetter() {
 
   // Entferne das Element nach Ablauf der Animation
   setTimeout(() => {
-    fallingLettersContainer.removeChild(letter);
+    if (letter.parentNode) {
+      letter.remove();
+    }
   }, 5000);
 }
 
 // Funktion, um die korrekten Buchstaben zu sammeln
 function collectLetter(letter, element) {
-  const answer = currentQuestion.answer;
+  if (collectedLetters.length < expectedAnswer.length) {
+    // Check, ob der nächste benötigte Buchstabe übereinstimmt
+    if (expectedAnswer[collectedLetters.length] === letter) {
+      collectedLetters.push(letter);
+      updateInputDisplay();
+      element.remove();
 
-  if (answer[collectedLetters.length] === letter) {
-    collectedLetters.push(letter);
-    inputDisplay.textContent =
-      collectedLetters.join(" ") +
-      " _".repeat(answer.length - collectedLetters.length).trim();
-    element.remove();
-
-    // Falls die Antwort komplett ist, aktiviere den Button
-    if (collectedLetters.length === answer.length) {
-      nextButton.disabled = false;
+      // Falls die Antwort vollständig ist, aktiviere den Button
+      if (collectedLetters.length === expectedAnswer.length) {
+        nextButton.disabled = false;
+      }
     }
   }
 }
 
+// Aktualisiert die Anzeige des "Eingabefelds"
+function updateInputDisplay() {
+  inputDisplay.textContent =
+    collectedLetters.join(" ") +
+    " _".repeat(expectedAnswer.length - collectedLetters.length).trim();
+}
+
 // Buchstaben in Intervallen erscheinen lassen
-setInterval(createFallingLetter, 800);
+setInterval(createFallingLetter, 1000);
 
 // "Weiter"-Button zur nächsten Seite
 nextButton.addEventListener("click", () => {
