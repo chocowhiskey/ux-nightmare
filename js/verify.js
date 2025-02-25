@@ -17,12 +17,13 @@ let expectedAnswer;
 let collectedLetters;
 let incorrectGuesses;
 
-// Funktion, um eine neue Frage zu starten
 function startNewQuestion() {
   currentQuestion =
     securityQuestions[Math.floor(Math.random() * securityQuestions.length)];
-  expectedAnswer = currentQuestion.answer.split(""); // Array mit Buchstaben
-  collectedLetters = new Array(expectedAnswer.length).fill("_"); // Platzhalter für Hangman
+  // Array with letters
+  expectedAnswer = currentQuestion.answer.split("");
+  // Placeholder for hangman
+  collectedLetters = new Array(expectedAnswer.length).fill("_");
   incorrectGuesses = 0;
 
   questionDisplay.textContent = currentQuestion.question;
@@ -31,18 +32,16 @@ function startNewQuestion() {
   fallingLettersContainer.innerHTML = ""; // Reset falling letters
 }
 
-// Funktion, um zufällige Buchstaben und Zahlen zu generieren
 function getRandomChar() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
   return chars.charAt(Math.floor(Math.random() * chars.length));
 }
 
-// Funktion, um einen fallenden Buchstaben zu erstellen
 function createFallingLetter() {
   const letter = document.createElement("span");
   letter.classList.add("falling-letter");
 
-  // 50% Chance, dass der Buchstabe zur Antwort gehört
+  // 50% chance the letter belongs to answer
   let char =
     Math.random() < 0.5
       ? expectedAnswer[Math.floor(Math.random() * expectedAnswer.length)]
@@ -52,12 +51,11 @@ function createFallingLetter() {
   letter.style.left = Math.random() * 90 + "%";
   letter.style.animationDuration = Math.random() * 3 + 6 + "s";
 
-  // Klick-Event zum Sammeln der Buchstaben
   letter.addEventListener("click", () => collectLetter(char, letter));
 
   fallingLettersContainer.appendChild(letter);
 
-  // Entferne das Element nach Ablauf der Animation
+  // Let letter disappear
   setTimeout(() => {
     if (letter.parentNode) {
       letter.remove();
@@ -65,7 +63,6 @@ function createFallingLetter() {
   }, 5000);
 }
 
-// Funktion, um Buchstaben zu sammeln
 function collectLetter(letter, element) {
   let found = false;
 
@@ -95,23 +92,20 @@ function collectLetter(letter, element) {
   }
 }
 
-// Aktualisiert die Hangman-Zeichnung
 function updateHangman() {
   hangmanDisplay.textContent = `Hangman: ${"X".repeat(incorrectGuesses)}`;
 }
 
-// Aktualisiert die Anzeige des "Eingabefelds"
+// Update answer display
 function updateInputDisplay() {
   inputDisplay.textContent = collectedLetters.join(" ");
 }
 
-// Buchstaben in Intervallen erscheinen lassen
+// Let appear letters
 setInterval(createFallingLetter, 1000);
 
-// "Weiter"-Button zur nächsten Seite
 nextButton.addEventListener("click", () => {
   window.location.href = "captcha.html"; // Nächste Seite
 });
 
-// Erste Frage starten
 startNewQuestion();
