@@ -37,17 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePhoneNumber();
     // Event-Listener for phone submission
     submitPhoneButton.addEventListener("click", () => {
-      const phoneNumber = document.getElementById("phone-number").value;
-
-      if (!validator.isMobilePhone(phoneNumber)) {
-        alert(
-          "Well well well if you are not a lying piece of shit, then Ill shit bricks...."
-        );
-      } else {
-        showNotification("Handynummer erfolgreich eingetragen!");
-        console.log("Got phone number...");
-        // Todo
-      }
+      showNotification("Handynummer erfolgreich eingetragen!");
+      console.log("Got phone number...");
+      window.location.href = "verify.html";
     });
 
     // Event-Listener for change phone number

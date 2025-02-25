@@ -1,65 +1,79 @@
-import {
-  getRandomInt,
-  showNotification,
-  generateRandomPhoneNumber,
-} from "./utils.js";
-
-export const randomAlertWhileRegistrationMessages = [
-  "Bereit für das schlimmste Formular deines Lebens?",
-  "Warum schickst du das Formular ab? Du hast noch Zeit!",
-  "Denk daran, du hast noch nichts akzeptiert! Oder doch?",
-  "Bist du sicher, dass du deinen Namen richtig geschrieben hast? Ich bin mir nicht sicher.",
-  "Warum willst du überhaupt registrieren? Überdenke deine Entscheidung!",
-  "Klick auf den Button, aber niemand sagt dir, was passiert!",
-  "Achtung! Dein Passwort ist zu sicher für uns.",
-  "Schon überlegt, ob du es später noch bereust?",
-  "Denk dran, du musst 17 mal bestätigen, was du hier tust.",
-  "Hier ist der Moment, in dem du dein Leben ändern könntest... oder auch nicht.",
-  "Sind dir die AGB wirklich wichtig? Wahrscheinlich nicht.",
-  "Hey, warum registrierst du dich überhaupt? Diese Entscheidung wird dich für immer verfolgen!",
-  "Ein Klick für den Fortschritt, zwei für den Rückschritt.",
-  "Du hast dich so weit durchgeklickt, es wäre schade, jetzt aufzuhören.",
-  "Du wirst dich in ein paar Minuten fragen, warum du diesen Schritt gemacht hast. Viel Spaß!",
+const securityQuestions = [
+  { question: "Was ist die Hauptstadt von Frankreich?", answer: "PARIS" },
+  { question: "Wie heißt der größte Ozean?", answer: "PAZIFIK" },
+  { question: "Welche Farbe hat eine Banane?", answer: "GELB" },
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("event listener started...");
+const questionDisplay = document.getElementById("security-question");
+const inputDisplay = document.getElementById("input-display");
+const fallingLettersContainer = document.getElementById(
+  "falling-letters-container"
+);
+const nextButton = document.getElementById("next-button");
 
-  let intervalStarted = false;
-  if (document.getElementById("submit-phone")) {
-    const generatedPhoneButton = document.getElementById("generated-phone");
-    const submitPhoneButton = document.getElementById("submit-phone");
-    const changePhoneButton = document.getElementById("change-phone");
+let currentQuestion =
+  securityQuestions[Math.floor(Math.random() * securityQuestions.length)];
+let collectedLetters = [];
 
-    function updatePhoneNumber() {
-      generatedPhoneButton.textContent = generateRandomPhoneNumber();
+questionDisplay.textContent = currentQuestion.question;
+inputDisplay.textContent = "_ ".repeat(currentQuestion.answer.length).trim();
+
+// Funktion, um zufällige Buchstaben und Zahlen zu generieren
+function getRandomChar() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  return chars.charAt(Math.floor(Math.random() * chars.length));
+}
+
+// Funktion, um einen fallenden Buchstaben zu erstellen
+function createFallingLetter() {
+  const letter = document.createElement("span");
+  letter.classList.add("falling-letter");
+
+  // 50% Chance, dass der Buchstabe zur Antwort gehört
+  let char =
+    Math.random() < 0.5
+      ? currentQuestion.answer[
+          Math.floor(Math.random() * currentQuestion.answer.length)
+        ]
+      : getRandomChar();
+
+  letter.textContent = char;
+  letter.style.left = Math.random() * 90 + "%";
+  letter.style.animationDuration = Math.random() * 3 + 7 + "s";
+
+  // Klick-Event zum Sammeln der Buchstaben
+  letter.addEventListener("click", () => collectLetter(char, letter));
+
+  fallingLettersContainer.appendChild(letter);
+
+  // Entferne das Element nach Ablauf der Animation
+  setTimeout(() => {
+    fallingLettersContainer.removeChild(letter);
+  }, 5000);
+}
+
+// Funktion, um die korrekten Buchstaben zu sammeln
+function collectLetter(letter, element) {
+  const answer = currentQuestion.answer;
+
+  if (answer[collectedLetters.length] === letter) {
+    collectedLetters.push(letter);
+    inputDisplay.textContent =
+      collectedLetters.join(" ") +
+      " _".repeat(answer.length - collectedLetters.length).trim();
+    element.remove();
+
+    // Falls die Antwort komplett ist, aktiviere den Button
+    if (collectedLetters.length === answer.length) {
+      nextButton.disabled = false;
     }
-    updatePhoneNumber();
-    // Event-Listener for phone submission
-    submitPhoneButton.addEventListener("click", () => {
-      const phoneNumber = document.getElementById("phone-number").value;
-
-      if (!validator.isMobilePhone(phoneNumber)) {
-        alert(
-          "Well well well if you are not a lying piece of shit, then Ill shit bricks...."
-        );
-      } else {
-        showNotification("Handynummer erfolgreich eingetragen!");
-        console.log("Got phone number...");
-        // Todo
-      }
-    });
-
-    // Event-Listener for change phone number
-    changePhoneButton.addEventListener("click", () => {
-      updatePhoneNumber();
-    });
   }
+}
 
-  if (!intervalStarted) {
-    intervalStarted = true;
-    setInterval(() => {
-      showNotification("", true, randomAlertWhileRegistrationMessages);
-    }, getRandomInt(3000, 5000));
-  }
+// Buchstaben in Intervallen erscheinen lassen
+setInterval(createFallingLetter, 800);
+
+// "Weiter"-Button zur nächsten Seite
+nextButton.addEventListener("click", () => {
+  window.location.href = "captcha.html"; // Nächste Seite
 });
