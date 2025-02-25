@@ -45,3 +45,35 @@ button:hover {
   background-color: #ec4e20;
   display: none;
 }
+
+#falling-letters-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.falling-letter {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  animation: fallAnimation linear 5s forwards;
+}
+
+@keyframes fallAnimation {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(400px);
+  }
+}
+
+#input-display {
+  font-size: 24px;
+  letter-spacing: 10px;
+  margin: 20px;
+}
