@@ -112,33 +112,27 @@ startNewQuestion();
 
 let timeLeft = 60; // Startzeit in Sekunden
 const countdownElement = document.getElementById("countdown-timer");
+const countdownBar = document.getElementById("countdown-bar");
 
-// Funktion zum Starten des Countdowns
 function startCountdown() {
   const timer = setInterval(() => {
     timeLeft--;
     countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
+    countdownBar.style.width = (timeLeft / 60) * 100 + "%"; // Breite aktualisieren
+
+    // Farbwechsel je nach verbleibender Zeit (grün → orange → rot)
+    if (timeLeft < 20) {
+      countdownBar.style.backgroundColor = "red";
+    } else if (timeLeft < 40) {
+      countdownBar.style.backgroundColor = "orange";
+    }
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      showNextSecurityQuestion(); // Neue Frage, wenn Zeit abgelaufen ist
+      showNextSecurityQuestion();
     }
   }, 1000);
 }
 
-// Funktion zum Laden einer neuen Sicherheitsfrage
-function showNextSecurityQuestion() {
-  alert("⏳ Zeit abgelaufen! Neue Frage wird geladen...");
-  resetGame();
-}
-
-// Funktion zum Zurücksetzen des Spiels (z.B. neue Frage + neuer Countdown)
-function resetGame() {
-  timeLeft = 60;
-  countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
-  startCountdown();
-  // Hier würde eine neue Frage geladen werden
-}
-
-// Countdown starten, wenn die Seite geladen wird
+// Startet den Countdown beim Laden der Seite
 document.addEventListener("DOMContentLoaded", startCountdown);
