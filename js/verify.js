@@ -109,3 +109,36 @@ nextButton.addEventListener("click", () => {
 });
 
 startNewQuestion();
+
+let timeLeft = 60; // Startzeit in Sekunden
+const countdownElement = document.getElementById("countdown-timer");
+
+// Funktion zum Starten des Countdowns
+function startCountdown() {
+  const timer = setInterval(() => {
+    timeLeft--;
+    countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      showNextSecurityQuestion(); // Neue Frage, wenn Zeit abgelaufen ist
+    }
+  }, 1000);
+}
+
+// Funktion zum Laden einer neuen Sicherheitsfrage
+function showNextSecurityQuestion() {
+  alert("⏳ Zeit abgelaufen! Neue Frage wird geladen...");
+  resetGame();
+}
+
+// Funktion zum Zurücksetzen des Spiels (z.B. neue Frage + neuer Countdown)
+function resetGame() {
+  timeLeft = 60;
+  countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
+  startCountdown();
+  // Hier würde eine neue Frage geladen werden
+}
+
+// Countdown starten, wenn die Seite geladen wird
+document.addEventListener("DOMContentLoaded", startCountdown);
