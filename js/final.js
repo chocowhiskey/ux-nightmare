@@ -38,13 +38,32 @@ const finalButton = document.getElementById("final-button");
 finalButton.addEventListener("mouseover", () => {
   const newX = Math.random() * (window.innerWidth - 100);
   const newY = Math.random() * (window.innerHeight - 50);
+
+  finalButton.style.transition = "all 1s ease-in-out";
   finalButton.style.left = `${newX}px`;
   finalButton.style.top = `${newY}px`;
 });
 
-setTimeout(() => {
-  alert("Are you sure this is the end? 👀");
-}, 5000);
+const popUpMessages = [
+  "Wait… Are you REALLY sure?",
+  "What if this was all a mistake?",
+  "This button has never been clicked before. Are you the chosen one?",
+  "ERROR 404: Exit Not Found",
+  "Clicking this button will delete the internet. Proceed?",
+  "Wait, I lost my script. What was supposed to happen next?",
+  "Are you trying to escape? Ha! Nice try.",
+  "Every click fuels my power. Keep going.",
+  "Warning: Clicking may cause unexpected side effects…",
+  "Okay, okay, you win... or do you? 👀",
+];
+
+finalButton.addEventListener("click", () => {
+  popUpMessages.forEach((message, index) => {
+    setTimeout(() => {
+      alert(message);
+    }, index * 1000); // Zeigt jedes Pop-up mit 1 Sekunde Verzögerung an
+  });
+});
 
 // Start-Events
 document.addEventListener("DOMContentLoaded", () => {

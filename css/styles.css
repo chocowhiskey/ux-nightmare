@@ -187,7 +187,6 @@ button:hover {
   animation: crazyText 0.5s infinite;
 }
 
-/* Fake-Button, der wegfliegt */
 #final-button {
   position: absolute;
   bottom: 50px;
@@ -196,5 +195,28 @@ button:hover {
   font-size: 1.5rem;
   padding: 10px 20px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 1s ease-in-out; /* Hier die Geschwindigkeit auf 1s setzen */
+}
+
+/* Langsame Fluchtbewegung für den Button */
+#final-button:hover {
+  animation: fleeButton 2s ease-in-out infinite;
+}
+
+@keyframes fleeButton {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  25% {
+    transform: translate(20px, -50%) scale(1.2);
+  }
+  50% {
+    transform: translate(-20px, -50%) scale(1.4);
+  }
+  75% {
+    transform: translate(10px, -50%) scale(1.6);
+  }
+  100% {
+    transform: translate(-10px, -50%) scale(1.8);
+  }
 }
