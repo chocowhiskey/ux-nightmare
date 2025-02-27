@@ -5,21 +5,21 @@ import {
 } from "./utils.js";
 
 export const randomAlertWhileRegistrationMessages = [
-  "Bereit für das schlimmste Formular deines Lebens?",
-  "Warum schickst du das Formular ab? Du hast noch Zeit!",
-  "Denk daran, du hast noch nichts akzeptiert! Oder doch?",
-  "Bist du sicher, dass du deinen Namen richtig geschrieben hast? Ich bin mir nicht sicher.",
-  "Warum willst du überhaupt registrieren? Überdenke deine Entscheidung!",
-  "Klick auf den Button, aber niemand sagt dir, was passiert!",
-  "Achtung! Dein Passwort ist zu sicher für uns.",
-  "Schon überlegt, ob du es später noch bereust?",
-  "Denk dran, du musst 17 mal bestätigen, was du hier tust.",
-  "Hier ist der Moment, in dem du dein Leben ändern könntest... oder auch nicht.",
-  "Sind dir die AGB wirklich wichtig? Wahrscheinlich nicht.",
-  "Hey, warum registrierst du dich überhaupt? Diese Entscheidung wird dich für immer verfolgen!",
-  "Ein Klick für den Fortschritt, zwei für den Rückschritt.",
-  "Du hast dich so weit durchgeklickt, es wäre schade, jetzt aufzuhören.",
-  "Du wirst dich in ein paar Minuten fragen, warum du diesen Schritt gemacht hast. Viel Spaß!",
+  "Ready for the worst form of your life?",
+  "Why are you submitting the form? You still have time!",
+  "Remember, you haven't accepted anything yet! Or have you?",
+  "Are you sure you spelled your name correctly? I'm not so sure.",
+  "Why do you even want to register? Rethink your decision!",
+  "Click the button, but no one tells you what happens next!",
+  "Warning! Your password is too secure for us.",
+  "Have you considered that you might regret this later?",
+  "Remember, you have to confirm this 17 times.",
+  "This is the moment where you could change your life... or not.",
+  "Do the terms and conditions really matter to you? Probably not.",
+  "Hey, why are you even registering? This decision will haunt you forever!",
+  "One click for progress, two for regression.",
+  "You've clicked this far, it would be a shame to stop now.",
+  "In a few minutes, you'll wonder why you took this step. Have fun!",
 ];
 
 document.addEventListener("DOMContentLoaded", () => {

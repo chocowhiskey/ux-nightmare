@@ -1,4 +1,3 @@
-// 🎉 Konfetti-Animation (einfache Version)
 function startConfetti() {
   const confettiCanvas = document.getElementById("confetti");
   const ctx = confettiCanvas.getContext("2d");
@@ -27,16 +26,14 @@ function startConfetti() {
   drawConfetti();
 }
 
-// 🎵 Automatische Musik
 function playRandomMusic() {
   const audio = new Audio(
     "https://www.myinstants.com/media/sounds/airhorn.mp3"
-  ); // Troll-Musik
-  audio.loop = true;
+  );
+  // audio.loop = true;
   audio.play();
 }
 
-// 🤡 Button bewegt sich weg, wenn Maus sich nähert
 const finalButton = document.getElementById("final-button");
 finalButton.addEventListener("mouseover", () => {
   const newX = Math.random() * (window.innerWidth - 100);
@@ -45,7 +42,6 @@ finalButton.addEventListener("mouseover", () => {
   finalButton.style.top = `${newY}px`;
 });
 
-// 🛑 Pop-up nach 5 Sekunden
 setTimeout(() => {
   alert("Are you sure this is the end? 👀");
 }, 5000);

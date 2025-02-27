@@ -105,12 +105,12 @@ function updateInputDisplay() {
 setInterval(createFallingLetter, 1000);
 
 nextButton.addEventListener("click", () => {
-  window.location.href = "final.html"; // Nächste Seite
+  window.location.href = "final.html";
 });
 
 startNewQuestion();
 
-let timeLeft = 60; // Startzeit in Sekunden
+let timeLeft = 60;
 const countdownElement = document.getElementById("countdown-timer");
 const countdownBar = document.getElementById("countdown-bar");
 
@@ -118,9 +118,9 @@ function startCountdown() {
   const timer = setInterval(() => {
     timeLeft--;
     countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
-    countdownBar.style.width = (timeLeft / 60) * 100 + "%"; // Breite aktualisieren
+    countdownBar.style.width = (timeLeft / 60) * 100 + "%";
 
-    // Farbwechsel je nach verbleibender Zeit (grün → orange → rot)
+    // Color change
     if (timeLeft < 20) {
       countdownBar.style.backgroundColor = "red";
     } else if (timeLeft < 40) {
@@ -134,5 +134,5 @@ function startCountdown() {
   }, 1000);
 }
 
-// Startet den Countdown beim Laden der Seite
+// Starts countdown on loading site
 document.addEventListener("DOMContentLoaded", startCountdown);
