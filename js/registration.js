@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password").value;
 
     if (!validator.isEmail(email)) {
-      showBootstrapAlert("⚠️ You must enter an email!");
+      alert("⚠️ You must enter an email!");
     } else if (!password) {
-      showBootstrapAlert("⚠️ You must enter a password!");
+      alert("⚠️ You must enter a password!");
     }
 
     if (validator.isEmail(email) && password) {
@@ -80,18 +80,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }, getRandomInt(3000, 5000));
   }
 });
-
-function showBootstrapAlert(message, type = "danger") {
-  const alertDiv = document.getElementById("custom-alert");
-  alertDiv.classList.remove("d-none");
-  alertDiv.classList.add(`alert-${type}`);
-  alertDiv.innerHTML = `
-        <strong>Attention!</strong> ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-}
-
-// Beispiel: Alert nach 2 Sekunden auslösen
-setTimeout(() => {
-  showBootstrapAlert("Dies ist eine Bootstrap-Warnung!", "warning");
-}, 2000);
