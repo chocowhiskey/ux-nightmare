@@ -1,3 +1,5 @@
+import { popUpMessages, audio } from "./utils.js";
+
 function startConfetti() {
   const confettiCanvas = document.getElementById("confetti");
   const ctx = confettiCanvas.getContext("2d");
@@ -27,9 +29,6 @@ function startConfetti() {
 }
 
 function playRandomMusic() {
-  const audio = new Audio(
-    "https://www.myinstants.com/media/sounds/airhorn.mp3"
-  );
   // audio.loop = true;
   audio.play();
 }
@@ -44,24 +43,11 @@ finalButton.addEventListener("mouseover", () => {
   finalButton.style.top = `${newY}px`;
 });
 
-const popUpMessages = [
-  "Wait… Are you REALLY sure?",
-  "What if this was all a mistake?",
-  "This button has never been clicked before. Are you the chosen one?",
-  "ERROR 404: Exit Not Found",
-  "Clicking this button will delete the internet. Proceed?",
-  "Wait, I lost my script. What was supposed to happen next?",
-  "Are you trying to escape? Ha! Nice try.",
-  "Every click fuels my power. Keep going.",
-  "Warning: Clicking may cause unexpected side effects…",
-  "Okay, okay, you win... or do you? 👀",
-];
-
 finalButton.addEventListener("click", () => {
   popUpMessages.forEach((message, index) => {
     setTimeout(() => {
       alert(message);
-    }, index * 1000); // Zeigt jedes Pop-up mit 1 Sekunde Verzögerung an
+    }, index * 1000);
   });
 });
 

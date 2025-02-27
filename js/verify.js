@@ -1,8 +1,4 @@
-const securityQuestions = [
-  { question: "Was ist die Hauptstadt von Frankreich?", answer: "PARIS" },
-  { question: "Wie heißt der größte Ozean?", answer: "PAZIFIK" },
-  { question: "Welche Farbe hat eine Banane?", answer: "GELB" },
-];
+import { securityQuestions } from "./utils.js";
 
 const questionDisplay = document.getElementById("security-question");
 const inputDisplay = document.getElementById("input-display");
@@ -10,7 +6,7 @@ const fallingLettersContainer = document.getElementById(
   "falling-letters-container"
 );
 const nextButton = document.getElementById("next-button");
-const hangmanDisplay = document.getElementById("hangman-display"); // Hangman Bild
+const hangmanDisplay = document.getElementById("hangman-display");
 
 let currentQuestion;
 let expectedAnswer;
@@ -82,7 +78,7 @@ function collectLetter(letter, element) {
   element.remove();
 
   if (incorrectGuesses >= 6) {
-    alert("Zu viele falsche Versuche! Neue Frage.");
+    alert("Too many wrong guesses! Time for a new question.");
     startNewQuestion();
     return;
   }
@@ -93,7 +89,7 @@ function collectLetter(letter, element) {
 }
 
 function updateHangman() {
-  hangmanDisplay.textContent = `Hangman: ${"X".repeat(incorrectGuesses)}`;
+  hangmanDisplay.textContent = `Errors: ${"X".repeat(incorrectGuesses)}`;
 }
 
 // Update answer display
@@ -117,7 +113,7 @@ const countdownBar = document.getElementById("countdown-bar");
 function startCountdown() {
   const timer = setInterval(() => {
     timeLeft--;
-    countdownElement.textContent = `Zeit übrig: ${timeLeft}s`;
+    countdownElement.textContent = `Time left: ${timeLeft}s`;
     countdownBar.style.width = (timeLeft / 60) * 100 + "%";
 
     // Color change

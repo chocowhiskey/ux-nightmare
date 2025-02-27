@@ -1,28 +1,14 @@
-import { getRandomInt, showNotification } from "./utils.js";
-
-const randomAlertWhileRegistrationMessages = [
-  "Ready for the worst form of your life?",
-  "Why are you submitting the form? You still have time!",
-  "Remember, you haven't accepted anything yet! Or have you?",
-  "Are you sure you spelled your name correctly? I'm not so sure.",
-  "Why do you even want to register? Rethink your decision!",
-  "Click the button, but no one tells you what happens next!",
-  "Warning! Your password is too secure for us.",
-  "Have you considered that you might regret this later?",
-  "Remember, you have to confirm this 17 times.",
-  "This is the moment where you could change your life... or not.",
-  "Do the terms and conditions really matter to you? Probably not.",
-  "Hey, why are you even registering? This decision will haunt you forever!",
-  "One click for progress, two for regression.",
-  "You've clicked this far, it would be a shame to stop now.",
-  "In a few minutes, you'll wonder why you took this step. Have fun!",
-];
+import {
+  getRandomInt,
+  showNotification,
+  randomAlertWhileRegistrationMessages,
+} from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("event listener started...");
 
   const registrateButton = document.getElementById("registrate-button");
-  const registrateSection = document.getElementById("registrate-section");
+
   let intervalStarted = false;
   let currentButtonSize = 100;
   let minButtonSize = 30;
@@ -72,14 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password").value;
 
     if (!validator.isEmail(email)) {
-      alert("⚠️ Du musst (d)eine Email eingeben!");
+      alert("⚠️ You must enter an email!");
     } else if (!password) {
-      alert("⚠️ Du musst ein Passwort eingeben!");
+      alert("⚠️ You must enter a password!");
     }
 
     if (validator.isEmail(email) && password) {
       // Show notification after registrate
-      showNotification("Erfolgreich eingeloggt!");
+      showNotification("Succesfully registered!");
       console.log(
         "Successfully registered...\nProceed to phone number submission"
       );
