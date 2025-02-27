@@ -128,3 +128,73 @@ button:hover {
   background-color: green;
   transition: width 1s linear;
 }
+
+/* Blinkender Regenbogen-Hintergrund */
+@keyframes blinkBackground {
+  0% {
+    background-color: red;
+  }
+  20% {
+    background-color: blue;
+  }
+  40% {
+    background-color: green;
+  }
+  60% {
+    background-color: yellow;
+  }
+  80% {
+    background-color: purple;
+  }
+  100% {
+    background-color: orange;
+  }
+}
+
+#final-page {
+  animation: blinkBackground 1s infinite;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Springender, rotierender Text */
+@keyframes crazyText {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  25% {
+    transform: rotate(10deg) translate(10px, -10px);
+  }
+  50% {
+    transform: rotate(-10deg) translate(-10px, 10px);
+  }
+  75% {
+    transform: rotate(15deg) translate(15px, -15px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
+#final-text {
+  font-size: 5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: crazyText 0.5s infinite;
+}
+
+/* Fake-Button, der wegfliegt */
+#final-button {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}

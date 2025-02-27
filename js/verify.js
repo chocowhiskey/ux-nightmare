@@ -105,7 +105,7 @@ function updateInputDisplay() {
 setInterval(createFallingLetter, 1000);
 
 nextButton.addEventListener("click", () => {
-  window.location.href = "captcha.html"; // Nächste Seite
+  window.location.href = "final.html"; // Nächste Seite
 });
 
 startNewQuestion();
